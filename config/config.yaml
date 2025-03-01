@@ -8,5 +8,9 @@ data_ingestion:
 
 data_validation:
   root_dir: artifacts/data_validation
-  input_data_dir: artifacts/data_ingestion/data
-  output_data_dir: artifacts/data_validation/output
+  data_validation_status_file: status.txt
+  data_validation_required_files_dir: artifacts/data_ingestion/feature_store/
+  data_validation_all_required_files:
+    - train
+    - valid
+    - data.yaml
