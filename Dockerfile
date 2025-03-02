@@ -1,19 +1,13 @@
-# Use a lightweight Python 3.7 base image
-FROM python:3.7-slim-buster
+FROM python:3.11-slim-bullseye
 
-# Set the working directory inside the container
+RUN apt-get update && apt-get install awscli -y
+
+RUN pip install --upgrade pip
+
 WORKDIR /app
 
-
-# Copy only requirements first to leverage Docker caching
-COPY requirements.txt /app/
-
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the rest of the application files
 COPY . /app
 
+RUN pip install -r requirements.txt
 
-# Default command to run the application
-CMD ["python3", "app.py"]
+CMD ["python", "main.py"]
