@@ -36,6 +36,33 @@ def read_yaml(path_to_yaml: Path) -> ConfigBox:
     except Exception as e:
         raise e
     
+@ensure_annotations
+def read_yaml_dict(path_to_yaml: Path):
+    """Reads a YAML file and returns a dictionary.
+
+    Args:
+        path_to_yaml (Path): Path to the YAML file.
+
+    Raises:
+        ValueError: If YAML file is empty.
+        Exception: For other errors.
+
+    Returns:
+        dict: The parsed YAML content as a dictionary.
+    """
+    try:
+        with open(path_to_yaml) as yaml_file:
+            content = yaml.safe_load(yaml_file)
+            logger.info(f"YAML file: {path_to_yaml} loaded successfully")
+
+            if not isinstance(content, dict):
+                raise ValueError("YAML file does not contain a valid dictionary")
+
+            return content  # Return as a standard dictionary
+    except BoxValueError:
+        raise ValueError("YAML file is empty")
+    except Exception as e:
+        raise e
 
 
 @ensure_annotations

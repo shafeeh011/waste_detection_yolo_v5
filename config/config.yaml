@@ -9,8 +9,18 @@ data_ingestion:
 data_validation:
   root_dir: artifacts/data_validation
   data_validation_status_file: status.txt
+  data_location: artifacts/data_ingestion/
+  data_file : data.zip
+  data_copy_location: .
   data_validation_required_files_dir: artifacts/data_ingestion/feature_store/
   data_validation_all_required_files:
     - train
     - valid
     - data.yaml
+
+model_training:
+  root_dir: artifacts/model_training
+  feature_store_root_dir: artifacts/data_ingestion/feature_store/
+  data_yaml_file: data.yaml
+  pretrained_model_path: yolov5/models
+  pretrained_model_name: yolov5s.pt

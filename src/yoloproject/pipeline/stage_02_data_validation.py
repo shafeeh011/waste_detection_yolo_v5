@@ -15,7 +15,9 @@ class DataValidationTrainingPipeline:
 
         data_validator = DataValidation(config=data_validation_config)
         validation_status = data_validator.validate_data()
+        copy_data = data_validator.copy_data()
         print(f"Data Validation Completed. Status: {validation_status}")
+        print(f"Data copied to {data_validation_config.data_copy_location}")
         
 if __name__ == '__main__':
     try:

@@ -2,7 +2,12 @@ from src.yoloproject.exception import AppException
 import sys
 import os
 from src.yoloproject.entity.config_entity import DataValidationConfig
+import shutil
 
+
+class DataValidation:
+    def __init__(self, config: DataValidationConfig):
+        self.config = config
 
 class DataValidation:
     def __init__(self, config: DataValidationConfig):
@@ -30,3 +35,14 @@ class DataValidation:
 
         except Exception as e:
             raise AppException(e, sys)
+        
+    def copy_data(self):
+        source_file = self.config.data_location / self.config.data_file
+        destination_file = self.config.data_copy_location / self.config.data_file
+
+        # Ensure destination directory exists
+        self.config.data_copy_location.mkdir(parents=True, exist_ok=True)
+
+        # Copy the file
+        shutil.copy(source_file, destination_file)
+        print(f"Copied {source_file} to {destination_file}")
