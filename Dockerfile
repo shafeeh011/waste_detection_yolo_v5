@@ -1,8 +1,19 @@
+# Use a lightweight Python 3.7 base image
 FROM python:3.7-slim-buster
+
+# Set the working directory inside the container
 WORKDIR /app
+
+
+# Copy only requirements first to leverage Docker caching
+COPY requirements.txt /app/
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application files
 COPY . /app
 
-RUN apt update -y && apt install awscli -y
 
-RUN apt-get update && apt-get install ffmpeg libsm6 libxext6 unzip -y && pip install -r requirements.txt
+# Default command to run the application
 CMD ["python3", "app.py"]
